@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { initializeApp } = require("firebase/app");
 const { getStorage } = require("firebase/storage");
-
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
