@@ -16,7 +16,7 @@ const singSchema = Schema( {
     type: String,
     require: true,
   },
-  path: {
+  audio_url: {
     type: String,
     require: true,
   },

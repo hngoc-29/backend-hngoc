@@ -1,8 +1,8 @@
 const routes = require('express').Router();
-const UploadImage = require('../middleware/UploadImage');
+const uploadFile = require('../middleware/UploadFile');
 const thumbnailRoute = require('../controllers/Thumbnail.controllers');
-routes.post('/create', UploadImage,thumbnailRoute.create);
+routes.post('/create', uploadFile,thumbnailRoute.create);
 routes.get('/', thumbnailRoute.getAll);
 routes.delete('/delete/:id', thumbnailRoute.deleteT);
-routes.put('/update/:id', UploadImage,thumbnailRoute.update);
+routes.put('/update/:id', uploadFile,thumbnailRoute.update);
 module.exports = routes;

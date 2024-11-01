@@ -11,14 +11,14 @@ const CheckPassword = async(req, res, next) => {
         message: 'Chưa nhập mật khẩu'
       });
     };
-    if (id){
+    if (id) {
       var user = await Services.findById(User, id);
     } else if (email) {
-        var user = await Services.findOne(User, {
-      email
-    }, '-code -refresh');
-      };
-      if(!user) return res.status(404).json({
+      var user = await Services.findOne(User, {
+        email
+      }, '-code -refresh');
+    };
+    if (!user) return res.status(404).json({
       success: false,
       message: 'Không tìm thấy người dùng'
     });
