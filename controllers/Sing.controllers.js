@@ -8,6 +8,10 @@ const singRoute = {
       const sings = await Services.findMany(Sing, {
         parent: parent
       });
+      await Services.update(Thumbnail, parent, {
+        $inc: {
+          wiew: +1
+        }});
       res.status(200).json({
         success: true,
         Sings: sings
