@@ -1,0 +1,22 @@
+#Các biến cần thêm vào env
+##EXPRESS
+###PORT
+##MONGOOSE
+###URL_DB
+##JWT
+###ACCESS_TOKEN
+###REFRESH_TOKEN
+###CODE_VERIFY
+##NODE MAILER
+###GMAIL
+###PASSWORD
+###HOST
+###NODE_PORT
+##FIREBASE STORAGE
+###API_KEY
+###AUTH_DOMAIN
+###PROJECT_ID
+###STORAGE_BUCKET
+###messagingSenderId
+###APP_ID
+###measurementId
