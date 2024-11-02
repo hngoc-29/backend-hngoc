@@ -24,8 +24,8 @@ const sendMail = (email, code) => {
   </div>
   `
   const transporter = nodemailer.createTransport({
-    host: 'hngoc.kesug.com',
-    port: 465,
+    host: process.env.HOST,
+    port: process.env.NODE_PORT,
     secure: true,
     service: 'gmail',
     auth: {
