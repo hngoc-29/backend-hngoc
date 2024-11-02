@@ -11,7 +11,7 @@ const sendMail = (email, code) => {
   <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhz055DVg2I6bmtE3Z85Kgx8xF5Va5Vee-0A&s' alt='vite' style='width: 80px; padding: 20px;'>
   </div>
   <p>
-  Để xác minh email của bạn, vui lòng nhập mã bên dưới vào mục mã xác minh.
+  Để xác minh email của bạn, vui lòng nhập mã bên dưới vào mục mã xác minh, mã xác minh chỉ có hiệu lực trong 15 phút.
   </p>
   <div style='height: 200px; position: relative; display: flex; justify-content: center;'>
   <span style='font-size: 40px;font-weight: 500;letter-spacing: 0.5em; margin-top:50px'>${code}</span>

@@ -35,9 +35,9 @@ const userSchema = Schema( {
       require: true,
     default: 'Member',
     },
-    code: {
-      type: Number,
-    default: 0,
+    codetoken: {
+      type: String,
+      default: null,
     },
     verify: {
       type: Boolean,
