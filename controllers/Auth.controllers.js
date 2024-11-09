@@ -9,7 +9,8 @@ const {
 } = require('../JwtAndCookie/Cookie');
 const {
   create_access_token,
-  create_refresh_token
+  create_refresh_token,
+  create_reset_token,
 } = require('../JwtAndCookie/Jwt');
 const sendMail = require('../config/Nodemailer.config');
 const checkToken = (refresh, secret) => {
@@ -47,14 +48,11 @@ const routesAuth = {
     try {
       const user = await Services.findOne(User, {
         email: req.body?.email
-      }, '-code -refresh -password');
+      }, '-codetoken -refresh -password');
       const access_token = create_access_token( {
         ...user._doc
       });
       const refresh_token = create_refresh_token(user.id);
-      await Services.update(User, user.id, {
-        refresh: refresh_token
-      })
       setRefreshTokenCookie(res, refresh_token);
       res.status(200).json({
         success: true,
@@ -88,7 +86,7 @@ const routesAuth = {
       await Services.update(User, id, {
         codetoken: code
       });
-      sendMail(user.email, code_verify);
+      sendMail(user.email, code_verify, 'verify');
       return res.status(200).json({
         success: true,
         message: 'Gửi mã thành công',
@@ -158,7 +156,7 @@ const routesAuth = {
         message: 'Bạn không có quyền thực hiện hành động này'
       });
       const id = req.params?.id;
-      const user = await Services.findById(User, id, '-code -refresh -password');
+      const user = await Services.findById(User, id, '-codetoken -refresh -password');
       if (!user) return res.status(404).json({
         success: false,
         message: 'Không tìm thấy người dùng'
@@ -167,9 +165,6 @@ const routesAuth = {
         ...user._doc
       });
       const refresh_token = create_refresh_token(id);
-      await Services.update(User, id, {
-        refresh: refresh_token
-      });
       setRefreshTokenCookie(res, refresh_token);
       res.status(200).json({
         success: true,
@@ -181,6 +176,50 @@ const routesAuth = {
       res.status(500).json({
         success: false,
         message: 'Có lỗi xảy ra',
+      });
+    };
+  },
+  forgetPassword: async(req, res) => {
+    try {
+      const email = req.query?.email;
+      const user = await Services.findOne(User, {
+        email: email
+      }, '-codetoken -password');
+      if (!user) return res.status(404).json({
+        success: false,
+        message: 'Không tìm thấy người dùng'
+      });
+      const resetToken = create_reset_token( {
+        ...user._doc
+      });
+      sendMail(email, resetToken, 'resetpassword');
+      res.status(200).json({
+        success: true,
+        message: 'Gửi email thay đổi mật khẩu thành công'
+      });
+    } catch(err) {
+      console.log(err)
+      res.status(500).json({
+        success: false,
+        message: 'Có lỗi xảy ra',
+      });
+    };
+  },
+  resetpass: async(req, res) => {
+    try {
+      const pass = req.body.password;
+      await Services.update(User, req?.user?.id, {
+        password: pass
+      });
+      res.status(200).json({
+        success: true,
+        message: 'Thay đổi mật khẩu thành công'
+      });
+    } catch(err) {
+      console.log(err)
+      res.status(500).json({
+        success: false,
+        message: 'Thay đổi mật khẩu thất bại'
       });
     };
   },

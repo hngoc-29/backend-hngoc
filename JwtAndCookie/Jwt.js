@@ -9,8 +9,13 @@ const create_refresh_token = (id) => jwt.sign({
   expiresIn: '7d'
 });
 
+const create_reset_token = (user) => jwt.sign(user, process.env.RESET_TOKEN, {
+  expiresIn: '15m'
+});
+
 
 module.exports = {
   create_access_token,
   create_refresh_token,
+  create_reset_token,
 }

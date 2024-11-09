@@ -15,4 +15,8 @@ routes.post('/code/:id', checkUser.checkSelf, Auth.newCode);
 routes.post('/verify/:id', checkUser.checkSelf, Auth.verify);
 //refresh token
 routes.post('/refresh/:id', checkUser.checkSelf, Auth.refresh);
+//forget password
+routes.post('/reset', Auth.forgetPassword);
+//set new pass
+routes.post('/newpass', checkUser.checkUserNoId, HashPass, Auth.resetpass);
 module.exports = routes;

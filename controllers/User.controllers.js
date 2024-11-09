@@ -3,7 +3,7 @@ const Services = require('../services/Services');
 const routesUser = {
   getSelf: async(req, res) => {
     try {
-      const user = await Services.findById(User, req.params?.id, '-code -refresh -password');
+      const user = await Services.findById(User, req.params?.id, '-codetoken -password');
       if (!user) {
         return res.status(404).json({
           success: false,
@@ -84,7 +84,7 @@ const routesUser = {
       });
       const user = await Services.findMany(User, {email: {
         $regex: email, $options: 'i'
-      }}, '-code -refresh -password');
+      }}, '-codetoken -password');
       res.status(200).json({
         success: true,
         user,

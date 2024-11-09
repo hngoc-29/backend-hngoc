@@ -37,15 +37,11 @@ const userSchema = Schema( {
     },
     codetoken: {
       type: String,
-      default: null,
+    default: null,
     },
     verify: {
       type: Boolean,
     default: false,
-    },
-    refresh: {
-      type: String,
-    default: null,
     },
   }, {
     timestamps: true,
