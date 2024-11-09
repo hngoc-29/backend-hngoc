@@ -27,7 +27,7 @@ const routesUser = {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 5;
       const skip = (page - 1) * limit;
-      const user = await User.find({}).select().skip(skip).limit(limit);
+      const user = await User.find({}).select('-codetoken -password').skip(skip).limit(limit);
       const totalUsers = await User.countDocuments();
       res.status(200).json({
         success: true,

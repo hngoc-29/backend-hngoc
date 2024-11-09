@@ -58,6 +58,7 @@ const routesAuth = {
         success: true,
         message: 'Đăng nhập thành công',
         access_token,
+        refresh_token,
         user,
       });
     } catch(err) {
@@ -170,6 +171,7 @@ const routesAuth = {
         success: true,
         message: 'Refresh thành công',
         access_token,
+        refresh_token,
       });
     } catch(err) {
       console.log(err)
