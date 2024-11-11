@@ -3,11 +3,27 @@ const Sing = require('../models/Sing.models');
 const Thumbnail = require('../models/Thumbnail.models');
 const singRoute = {
   getSing: async(req, res) => {
+    try{
+      const id = req.params?.id;
+      const sing = await Services.findById(Sing, id);
+      res.status(200).json({
+        success: true,
+        Sing: sing
+      });
+    } catch(err) {
+      console.log(err)
+      res.status(500).json({
+        success: false,
+        message: 'Có lỗi xảy ra'
+      });
+    };
+  },
+  getManySing: async(req, res) => {
     try {
       const parent = req.params?.parent;
       const sings = await Services.findMany(Sing, {
         parent: parent
-      });
+      }, '-audio_url');
       await Services.update(Thumbnail, parent, {
         $inc: {
           wiew: +1
@@ -28,6 +44,8 @@ const singRoute = {
     try {
       const data = req.body;
       const parent = req.body?.parent;
+      const singpath = data?.singname.trim().replace(/\s+/g, '-').toLowerCase();
+      data.sing_path = singpath;
       await Services.Create(Sing, data);
       await Services.update(Thumbnail, parent, {
         $inc: {

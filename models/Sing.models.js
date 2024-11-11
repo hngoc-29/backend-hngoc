@@ -24,6 +24,10 @@ const singSchema = Schema( {
     type: String,
     require: true,
   },
+  sing_path: {
+    type: String,
+    require: true,
+  },
   }, {
     timestamps: true,
     collection: 'Sings',
